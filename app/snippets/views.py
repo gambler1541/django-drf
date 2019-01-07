@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 
-# Create your views here.
+from .models import Snippets
+from .serializers import SnippetSerializer
+
+
+def snippet_list(request):
+    if request.method == 'GET':
+        snippet = Snippets.objects.all()
+        serializer = SnippetSerializer(snippet, many=True)
+        return JsonResponse(serializer.data, safe=False)
