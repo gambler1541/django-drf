@@ -29,3 +29,14 @@ def snippet_list(request):
             return JsonResponse(serializer.data, status=201)
         # invalid한 경우, error목록을 JSON형식으로 리턴하며 400(Bad request)
         return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def snippet_detail(request, pk):
+    try:
+        snippet = Snippets.objects.get(pk=pk)
+    except Snippets.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = SnippetSerializer(snippet)
+        return JsonResponse(serializer.data)
