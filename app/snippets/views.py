@@ -40,3 +40,26 @@ def snippet_detail(request, pk):
     if request.method == 'GET':
         serializer = SnippetSerializer(snippet)
         return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = SnippetSerializer(snippet, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'PATCH':
+        data = JSONParser().parse(request)
+        serializer = SnippetSerializer(snippet, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+
+
+    elif request.method == 'DELETE':
+        snippet.delete()
+        # 204는 성공했지만 보여줄 content는 없음(No content)
+        return HttpResponse(status=204)
