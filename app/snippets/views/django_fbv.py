@@ -62,8 +62,6 @@ def snippet_detail(request, pk):
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
 
-
-
     elif request.method == 'DELETE':
         snippet.delete()
         # 204는 성공했지만 보여줄 content는 없음(No content)

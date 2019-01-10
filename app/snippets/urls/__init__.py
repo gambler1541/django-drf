@@ -1,8 +1,9 @@
-from django.urls import path
-from ..views import django_fbv
+from django.urls import path, include
+
+from . import django_fbv, drf_fbv
 
 urlpatterns = [
-    path('snippets/', django_fbv.snippet_list),
-    path('snippets/<int:pk>/', django_fbv.snippet_detail),
+    path('django-fbv/', include(django_fbv)),
+    path('drf-fbv/', include((drf_fbv))),
 
 ]
