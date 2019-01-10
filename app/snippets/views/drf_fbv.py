@@ -32,17 +32,13 @@ def snippet_detail(request, pk):
         serializer = SnippetSerializer(snippet)
         return Response(serializer.data)
 
-    elif request.method == 'PATCH':
+    elif request.method in ('PATCH','PUT'):
         data = JSONParser().parse(request)
-        serializer = SnippetSerializer(snippet, data=data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = SnippetSerializer(snippet, data=data)
+        serializer = SnippetSerializer(
+            snippet, data=data,
+            # PATCH면 True
+            # PUT이면 False
+            partial= (request.method == 'PATCH'))
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
