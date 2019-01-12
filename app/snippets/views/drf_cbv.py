@@ -47,6 +47,10 @@ class SnippetDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request, pk, format=None):
+        '''
+        put method와 동일
+        partial속성만 다름
+        '''
         return self.put(request, pk, format, partial=True)
 
     def delete(self, request, pk, format=None):
