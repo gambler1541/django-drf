@@ -1,9 +1,13 @@
 from django.urls import path
 
-from ..views import drf_generic_cbv as views
+from ..views.drf_generic_cbv import *
+from ..views.user import *
 
 
 urlpatterns = [
-    path('snippets/', views.SnippetList.as_view()),
-    path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
+    path('snippets/',SnippetList.as_view()),
+    path('snippets/<int:pk>/', SnippetDetail.as_view()),
+    path('users/', UserListView.as_view()),
+    path('users/<int:pk>/', UserDetailView.as_view()),
+
 ]
