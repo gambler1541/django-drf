@@ -51,4 +51,5 @@ class UserSerializer(serializers.ModelSerializer):
             'pk',
             'username',
             'snippets_set',
+
         )
